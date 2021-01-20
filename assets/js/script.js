@@ -62,17 +62,21 @@ var auditTask = function(taskEl)
     $("taskEl").removeClass("list-group-item-warning list-group-item-danger");
 
     //apply new class if task is near/over due date
-    if(moment().isAfter(time))
+    if(moment().isAfter(date))
       {
         $(taskEl).addClass("list-group-item-danger");
       }
-    else if(Math.abs(moment().diff(time, "days")) <= 2)
+    if(Math.abs(moment().diff(time, "days")) >= -1)
+      {
+        $(taskEl).removeClass("list-group-item-danger");
+      }
+    if(Math.abs(moment().diff(time, "days")) <= 2)
       {
         $(taskEl).addClass("list-group-item-warning");
       }
-    else if(Math.abs(moment().diff(time, "days")) >= 3)
+    if(Math.abs(moment().diff(time, "days")) >= 2)
       {
-        $(taskEl).removeClass("list-group-item-warning list-group-item-danger");
+        $(taskEl).removeClass("list-group-item-warning");
       }
   };
 
@@ -341,4 +345,4 @@ setInterval(function()
       {
         auditTask(el);
       });
-  }, 5000); //1800000
+  }, 1800000); 
