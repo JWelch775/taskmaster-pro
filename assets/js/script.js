@@ -33,7 +33,8 @@ var loadTasks = function() {
 
   // loop over object properties
   $.each(tasks, function(list, arr) {
-    console.log(list, arr);
+    //console.log(list, arr);
+    
     // then loop over sub-array
     arr.forEach(function(task) {
       createTask(task.text, task.date, list);
@@ -50,7 +51,7 @@ $(".list-group").on("click", "p", function()
     var text = $(this)
     .text()
     .trim();
-    console.log(text);
+    //console.log(text);
 
     var textInput = $("<textarea>")
     .addClass("form-control")
@@ -230,6 +231,26 @@ $(".card .list-group").sortable(
         //update array on tasks object and save
         tasks[arrName] = tempArr;
         saveTasks();
+      }
+  });
+
+//function for dropping tasks into the trash 
+$("#trash").droppable(
+  {
+    accept:".card .list-group-item",
+    tolerance: "touch",
+    drop: function(event, ui)
+      {
+        ui.draggable.remove();
+        console.log("drop");
+      },
+    over: function(event, ui)
+      {
+        console.log("over");
+      },
+    out: function(event, ui)
+      {
+        console.log("out");
       }
   });
 
